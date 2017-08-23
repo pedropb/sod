@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="sod" schema="public" type="PostgreSQL - 9.4.13">
+   <tables>
+      <table name="access_demands" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('access_demands_demand_id_seq'::regclass)" digits="0" id="0" name="demand_id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="applicant_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_applicant_id_gt_users" implied="false" onDeleteCascade="false" table="gt_users"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="approver_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_approver_id_gt_users" implied="false" onDeleteCascade="false" table="gt_users"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="status" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="4" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="user_name" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="real_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="obs" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="8" name="updated" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="9" name="reason" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="10" name="demand_type" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="copy_user_id" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="12" name="group1" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="13" name="access_level1" nullable="true" remarks="" size="4" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="14" name="group2" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="15" name="access_level2" nullable="true" remarks="" size="4" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="16" name="group3" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="17" name="access_level3" nullable="true" remarks="" size="4" type="varchar"/>
+         <primaryKey column="demand_id" sequenceNumberInPK="1"/>
+         <index name="pk_access_demands" unique="true">
+            <column ascending="true" name="demand_id"/>
+         </index>
+      </table>
+      <table name="activities" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="activity_id" nullable="false" remarks="" size="255" type="varchar">
+            <child column="activity1" foreignKey="fk_conflict_reference_act1" implied="false" onDeleteCascade="false" table="conflicts"/>
+            <child column="activity2" foreignKey="fk_conflict_reference_act2" implied="false" onDeleteCascade="false" table="conflicts"/>
+            <child column="activity_id" foreignKey="fk_groups_a_reference_activiti" implied="false" onDeleteCascade="true" table="groups_activities"/>
+            <child column="activity_id" foreignKey="fk_transact_reference_activiti" implied="false" onDeleteCascade="false" table="transactions"/>
+            <child column="activity_id" foreignKey="fk_users_ac_reference_activiti" implied="false" onDeleteCascade="true" table="users_activities"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="activity_id" sequenceNumberInPK="1"/>
+         <index name="pk_activities" unique="true">
+            <column ascending="true" name="activity_id"/>
+         </index>
+      </table>
+      <table name="conflicts" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="conflict_id" nullable="false" remarks="" size="255" type="varchar">
+            <child column="conflict_id" foreignKey="fk_groups_s_reference_conflict" implied="false" onDeleteCascade="true" table="groups_solutions"/>
+            <child column="conflict_id" foreignKey="fk_users_so_reference_conflict" implied="false" onDeleteCascade="true" table="users_solutions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="activity1" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="activity_id" foreignKey="fk_conflict_reference_act1" implied="false" onDeleteCascade="false" table="activities"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="activity2" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="activity_id" foreignKey="fk_conflict_reference_act2" implied="false" onDeleteCascade="false" table="activities"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="4" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="conflict_id" sequenceNumberInPK="1"/>
+         <index name="pk_conflicts" unique="true">
+            <column ascending="true" name="conflict_id"/>
+         </index>
+         <index name="index_10" unique="false">
+            <column ascending="true" name="activity1"/>
+         </index>
+         <index name="index_11" unique="false">
+            <column ascending="true" name="activity2"/>
+         </index>
+      </table>
+      <table name="groups" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="group_id" nullable="false" remarks="" size="255" type="varchar">
+            <child column="group_id" foreignKey="fk_groups_a_reference_groups" implied="false" onDeleteCascade="true" table="groups_activities"/>
+            <child column="group_id" foreignKey="fk_groups_s_reference_groups" implied="false" onDeleteCascade="true" table="groups_solutions"/>
+            <child column="group_id" foreignKey="fk_groups_t_reference_groups" implied="false" onDeleteCascade="false" table="groups_transactions"/>
+            <child column="group_id" foreignKey="fk_users_gr_reference_groups" implied="false" onDeleteCascade="false" table="users_groups"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="group_id" sequenceNumberInPK="1"/>
+         <index name="pk_groups" unique="true">
+            <column ascending="true" name="group_id"/>
+         </index>
+      </table>
+      <table name="groups_activities" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="group_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="group_id" foreignKey="fk_groups_a_reference_groups" implied="false" onDeleteCascade="true" table="groups"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="activity_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="activity_id" foreignKey="fk_groups_a_reference_activiti" implied="false" onDeleteCascade="true" table="activities"/>
+         </column>
+         <column autoUpdated="false" defaultValue="1" digits="0" id="2" name="counter" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="3" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="group_id" sequenceNumberInPK="1"/>
+         <primaryKey column="activity_id" sequenceNumberInPK="2"/>
+         <index name="pk_groups_activities" unique="true">
+            <column ascending="true" name="group_id"/>
+            <column ascending="true" name="activity_id"/>
+         </index>
+      </table>
+      <table name="groups_solutions" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="group_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="group_id" foreignKey="fk_groups_s_reference_groups" implied="false" onDeleteCascade="true" table="groups"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="conflict_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="conflict_id" foreignKey="fk_groups_s_reference_conflict" implied="false" onDeleteCascade="true" table="conflicts"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="3" name="reason" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="gt_user_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_groups_s_reference_gt_users" implied="false" onDeleteCascade="false" table="gt_users"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="5" name="reason_created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="group_id" sequenceNumberInPK="1"/>
+         <primaryKey column="conflict_id" sequenceNumberInPK="2"/>
+         <index name="pk_groups_solutions" unique="true">
+            <column ascending="true" name="group_id"/>
+            <column ascending="true" name="conflict_id"/>
+         </index>
+      </table>
+      <table name="groups_transactions" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="group_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="group_id" foreignKey="fk_groups_t_reference_groups" implied="false" onDeleteCascade="false" table="groups"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="transaction_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="transaction_id" foreignKey="fk_groups_t_reference_transact" implied="false" onDeleteCascade="false" table="transactions"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="group_id" sequenceNumberInPK="1"/>
+         <primaryKey column="transaction_id" sequenceNumberInPK="2"/>
+         <index name="pk_groups_transactions" unique="true">
+            <column ascending="true" name="group_id"/>
+            <column ascending="true" name="transaction_id"/>
+         </index>
+         <index name="index_1" unique="false">
+            <column ascending="true" name="transaction_id"/>
+         </index>
+         <index name="index_2" unique="false">
+            <column ascending="true" name="group_id"/>
+         </index>
+      </table>
+      <table name="gt_groups_permissions" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="group_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_gt_group_reference_gt_user_" implied="false" onDeleteCascade="false" table="gt_user_groups"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="permission" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_gt_group_reference_gt_permi" implied="false" onDeleteCascade="false" table="gt_permissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="value" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="group_id" sequenceNumberInPK="1"/>
+         <primaryKey column="permission" sequenceNumberInPK="2"/>
+         <index name="pk_gt_groups_permissions" unique="true">
+            <column ascending="true" name="group_id"/>
+            <column ascending="true" name="permission"/>
+         </index>
+      </table>
+      <table name="gt_permission_groups" numRows="5" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('gt_permission_groups_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="group_id" foreignKey="fk_gt_permi_reference_gt_permi" implied="false" onDeleteCascade="false" table="gt_permissions"/>
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="gt_user_groups"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="permission_group" nullable="false" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="pk_gt_permission_groups" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="gt_permissions" numRows="28" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('gt_permissions_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="permission" foreignKey="fk_gt_group_reference_gt_permi" implied="false" onDeleteCascade="false" table="gt_groups_permissions"/>
+            <child column="permission" foreignKey="fk_gt_users_reference_gt_permi" implied="false" onDeleteCascade="false" table="gt_users_permissions"/>
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="gt_user_groups"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="permission" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="group_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_gt_permi_reference_gt_permi" implied="false" onDeleteCascade="false" table="gt_permission_groups"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="reference" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="4" name="read_write" nullable="true" remarks="" size="1" type="bool"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="pk_gt_permissions" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="gt_user_groups" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('gt_user_groups_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="group_id" foreignKey="fk_gt_group_reference_gt_user_" implied="false" onDeleteCascade="false" table="gt_groups_permissions"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="gt_permission_groups"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="gt_permissions"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="gt_users"/>
+            <child column="group_id" foreignKey="fk_gt_users_reference_gt_user_" implied="false" onDeleteCascade="false" table="gt_users_groups"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="user_group" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="3" name="initialized" nullable="false" remarks="" size="1" type="bool"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="pk_gt_user_groups" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="gt_users" numRows="1" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('gt_users_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="applicant_id" foreignKey="fk_applicant_id_gt_users" implied="false" onDeleteCascade="false" table="access_demands"/>
+            <child column="approver_id" foreignKey="fk_approver_id_gt_users" implied="false" onDeleteCascade="false" table="access_demands"/>
+            <child column="gt_user_id" foreignKey="fk_groups_s_reference_gt_users" implied="false" onDeleteCascade="false" table="groups_solutions"/>
+            <child column="user_id" foreignKey="fk_gt_users_reference_gt_users" implied="false" onDeleteCascade="false" table="gt_users_groups"/>
+            <child column="user_id" foreignKey="fk_gt_users_reference_gt_users" implied="false" onDeleteCascade="false" table="gt_users_permissions"/>
+            <child column="gt_user_id" foreignKey="fk_log_reference_gt_users" implied="false" onDeleteCascade="false" table="log"/>
+            <child column="recipient_id" foreignKey="fk_reminders_recipient_id" implied="false" onDeleteCascade="true" table="reminders"/>
+            <child column="gt_user_id" foreignKey="fk_users_so_reference_gt_users" implied="false" onDeleteCascade="false" table="users_solutions"/>
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="gt_user_groups"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="login" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="password" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="3" name="active" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="4" name="initialized" nullable="false" remarks="" size="1" type="bool"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="pk_gt_users" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="gt_users_groups" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="user_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_gt_users_reference_gt_users" implied="false" onDeleteCascade="false" table="gt_users"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="group_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_gt_users_reference_gt_user_" implied="false" onDeleteCascade="false" table="gt_user_groups"/>
+         </column>
+         <primaryKey column="user_id" sequenceNumberInPK="1"/>
+         <primaryKey column="group_id" sequenceNumberInPK="2"/>
+         <index name="pk_gt_users_groups" unique="true">
+            <column ascending="true" name="user_id"/>
+            <column ascending="true" name="group_id"/>
+         </index>
+      </table>
+      <table name="gt_users_permissions" numRows="28" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="user_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_gt_users_reference_gt_users" implied="false" onDeleteCascade="false" table="gt_users"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="permission" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_gt_users_reference_gt_permi" implied="false" onDeleteCascade="false" table="gt_permissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="value" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="user_id" sequenceNumberInPK="1"/>
+         <primaryKey column="permission" sequenceNumberInPK="2"/>
+         <index name="pk_gt_users_permissions" unique="true">
+            <column ascending="true" name="user_id"/>
+            <column ascending="true" name="permission"/>
+         </index>
+      </table>
+      <table name="journal" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('journal_journal_id_seq'::regclass)" digits="0" id="0" name="journal_id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="description" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="entry_type" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="reference" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="4" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="journal_id" sequenceNumberInPK="1"/>
+         <index name="pk_journal" unique="true">
+            <column ascending="true" name="journal_id"/>
+         </index>
+      </table>
+      <table name="log" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('log_log_id_seq'::regclass)" digits="0" id="0" name="log_id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="gt_user_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_log_reference_gt_users" implied="false" onDeleteCascade="false" table="gt_users"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="operation" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="module" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="description" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="form" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="6" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="log_id" sequenceNumberInPK="1"/>
+         <index name="pk_log" unique="true">
+            <column ascending="true" name="log_id"/>
+         </index>
+      </table>
+      <table name="modules" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="module_id" nullable="false" remarks="" size="255" type="varchar">
+            <child column="module_id" foreignKey="fk_modules__reference_modules" implied="false" onDeleteCascade="false" table="modules_transactions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="module_id" sequenceNumberInPK="1"/>
+         <index name="pk_modules" unique="true">
+            <column ascending="true" name="module_id"/>
+         </index>
+      </table>
+      <table name="modules_transactions" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="module_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="module_id" foreignKey="fk_modules__reference_modules" implied="false" onDeleteCascade="false" table="modules"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="transaction_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="transaction_id" foreignKey="fk_modules__reference_transact" implied="false" onDeleteCascade="false" table="transactions"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="created" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="transaction_id" sequenceNumberInPK="1"/>
+         <primaryKey column="module_id" sequenceNumberInPK="2"/>
+         <index name="pk_modules_transactions" unique="true">
+            <column ascending="true" name="transaction_id"/>
+            <column ascending="true" name="module_id"/>
+         </index>
+         <index name="index_7" unique="false">
+            <column ascending="true" name="transaction_id"/>
+         </index>
+         <index name="index_8" unique="false">
+            <column ascending="true" name="module_id"/>
+         </index>
+      </table>
+      <table name="reminders" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('reminders_reminder_id_seq'::regclass)" digits="0" id="0" name="reminder_id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="message" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="3" name="next_alarm" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="last_viewed" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="5" name="recipient_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_reminders_recipient_id" implied="false" onDeleteCascade="true" table="gt_users"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="author_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="7" name="dismissed" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="8" name="repeat" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="reminder_id" sequenceNumberInPK="1"/>
+         <index name="pk_reminders" unique="true">
+            <column ascending="true" name="reminder_id"/>
+         </index>
+      </table>
+      <table name="snapshots" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('snapshots_snapshot_id_seq'::regclass)" digits="0" id="0" name="snapshot_id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="1" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="users_conflicts" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="accepted_users_conflicts" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="groups_conflicts" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="accepted_groups_conflicts" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="snapshot_id" sequenceNumberInPK="1"/>
+         <index name="pk_snapshots" unique="true">
+            <column ascending="true" name="snapshot_id"/>
+         </index>
+      </table>
+      <table name="transactions" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="transaction_id" nullable="false" remarks="" size="255" type="varchar">
+            <child column="transaction_id" foreignKey="fk_groups_t_reference_transact" implied="false" onDeleteCascade="false" table="groups_transactions"/>
+            <child column="transaction_id" foreignKey="fk_modules__reference_transact" implied="false" onDeleteCascade="false" table="modules_transactions"/>
+            <child column="transaction_id" foreignKey="fk_users_tr_reference_transact" implied="false" onDeleteCascade="false" table="users_transactions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="activity_id" nullable="true" remarks="" size="255" type="varchar">
+            <parent column="activity_id" foreignKey="fk_transact_reference_activiti" implied="false" onDeleteCascade="false" table="activities"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="3" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="transaction_id" sequenceNumberInPK="1"/>
+         <index name="pk_transactions" unique="true">
+            <column ascending="true" name="transaction_id"/>
+         </index>
+         <index name="index_9" unique="false">
+            <column ascending="true" name="activity_id"/>
+         </index>
+      </table>
+      <table name="users" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="user_id" nullable="false" remarks="" size="255" type="varchar">
+            <child column="user_id" foreignKey="fk_users_ac_reference_users" implied="false" onDeleteCascade="true" table="users_activities"/>
+            <child column="user_id" foreignKey="fk_users_gr_reference_users" implied="false" onDeleteCascade="false" table="users_groups"/>
+            <child column="user_id" foreignKey="fk_users_so_reference_users" implied="false" onDeleteCascade="true" table="users_solutions"/>
+            <child column="user_id" foreignKey="fk_users_tr_reference_users" implied="false" onDeleteCascade="false" table="users_transactions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="user_id" sequenceNumberInPK="1"/>
+         <index name="pk_users" unique="true">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="users_activities" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="user_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="user_id" foreignKey="fk_users_ac_reference_users" implied="false" onDeleteCascade="true" table="users"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="activity_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="activity_id" foreignKey="fk_users_ac_reference_activiti" implied="false" onDeleteCascade="true" table="activities"/>
+         </column>
+         <column autoUpdated="false" defaultValue="1" digits="0" id="2" name="counter" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="3" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="user_id" sequenceNumberInPK="1"/>
+         <primaryKey column="activity_id" sequenceNumberInPK="2"/>
+         <index name="pk_users_activities" unique="true">
+            <column ascending="true" name="user_id"/>
+            <column ascending="true" name="activity_id"/>
+         </index>
+      </table>
+      <table name="users_groups" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="user_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="user_id" foreignKey="fk_users_gr_reference_users" implied="false" onDeleteCascade="false" table="users"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="group_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="group_id" foreignKey="fk_users_gr_reference_groups" implied="false" onDeleteCascade="false" table="groups"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="user_id" sequenceNumberInPK="1"/>
+         <primaryKey column="group_id" sequenceNumberInPK="2"/>
+         <index name="pk_users_groups" unique="true">
+            <column ascending="true" name="user_id"/>
+            <column ascending="true" name="group_id"/>
+         </index>
+         <index name="index_5" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+         <index name="index_6" unique="false">
+            <column ascending="true" name="group_id"/>
+         </index>
+      </table>
+      <table name="users_solutions" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="user_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="user_id" foreignKey="fk_users_so_reference_users" implied="false" onDeleteCascade="true" table="users"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="conflict_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="conflict_id" foreignKey="fk_users_so_reference_conflict" implied="false" onDeleteCascade="true" table="conflicts"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="3" name="reason" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="gt_user_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_users_so_reference_gt_users" implied="false" onDeleteCascade="false" table="gt_users"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="5" name="reason_created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="user_id" sequenceNumberInPK="1"/>
+         <primaryKey column="conflict_id" sequenceNumberInPK="2"/>
+         <index name="pk_users_solutions" unique="true">
+            <column ascending="true" name="user_id"/>
+            <column ascending="true" name="conflict_id"/>
+         </index>
+      </table>
+      <table name="users_transactions" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="user_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="user_id" foreignKey="fk_users_tr_reference_users" implied="false" onDeleteCascade="false" table="users"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="transaction_id" nullable="false" remarks="" size="255" type="varchar">
+            <parent column="transaction_id" foreignKey="fk_users_tr_reference_transact" implied="false" onDeleteCascade="false" table="transactions"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="user_id" sequenceNumberInPK="1"/>
+         <primaryKey column="transaction_id" sequenceNumberInPK="2"/>
+         <index name="pk_users_transactions" unique="true">
+            <column ascending="true" name="user_id"/>
+            <column ascending="true" name="transaction_id"/>
+         </index>
+         <index name="index_3" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+         <index name="index_4" unique="false">
+            <column ascending="true" name="transaction_id"/>
+         </index>
+      </table>
+   </tables>
+</database>
