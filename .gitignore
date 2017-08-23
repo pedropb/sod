@@ -1,0 +1,12 @@
+# Maven 
+target/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+
+.DS_Store
+.vscode/
+*.war

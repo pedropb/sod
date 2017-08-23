@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.x-gtgridbox-trigger {
+	border-bottom: 1px solid #B5B8C8 !important;
+	background-image: url('../images/search-trigger.gif');
+}
+
+.x-gtgridbox-trigger:hover {
+	background-position: -17px 0;
+	border-bottom-color: #7EADD9;
+}

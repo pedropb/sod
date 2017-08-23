@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+.x-tree-no-icon {
+	display: none;
+	background-image: none;
+	width: 0px;
+}

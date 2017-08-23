@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+div.x-panel-default-framed {
+	border: none;
+}
+
+.x-mask {
+	z-index: 20000000;
+}
+
+.x-mask-msg {
+	z-index: 20000001;
+}
+
+.tree>div {
+	overflow: hidden !important;
+}
