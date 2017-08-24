@@ -1,5 +1,5 @@
 <%@page pageEncoding="UTF-8" contentType="application/json; charset=UTF-8"%>
-<%@page import="java.text.DateFormat"%><%@page import="java.text.SimpleDateFormat"%><%@page import="geotech.document.XlsxWriter"%><%@page import="geotech.document.XlsWriter"%><%@page import="org.json.JSONArray"%><%@page import="org.json.JSONException"%><%@page import="org.json.JSONObject"%><%@page import="java.io.BufferedReader"%><%@page import="java.io.DataOutputStream"%><%@page import="java.io.InputStreamReader"%><%@page import="java.net.HttpURLConnection"%><%@page import="java.net.URL"%><%@page import="java.net.URLEncoder"%><%
+<%@page import="java.util.List,java.text.DateFormat,java.text.SimpleDateFormat,geotech.document.XlsxWriter,geotech.document.XlsWriter,geotech.Utils,org.json.JSONArray,org.json.JSONException,org.json.JSONObject,java.io.BufferedReader,java.io.DataOutputStream,java.io.InputStreamReader,java.net.HttpURLConnection,java.net.URL,java.net.URLEncoder"%><%
 	response.setContentType("text/html");
 
 	String title = request.getParameter("title");
@@ -38,8 +38,8 @@
 			}
 	} catch (Exception e) {}
 	
-	String baseUrl = request.getRequestURL().toString().replaceAll("actions/exportXls.jsp", "");
-	URL url = new URL(baseUrl + storeUrl);
+	String urlString = Utils.getEndPoints().get(0) + getServletContext().getContextPath() + "/" + storeUrl;
+	URL url = new URL(urlString);
 	HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 	
 	String charset = "UTF-8";
