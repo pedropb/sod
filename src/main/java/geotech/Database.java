@@ -36,8 +36,6 @@ public class Database
 			final String pass = (String) env.lookup("pass");
 			final String database = (String) env.lookup("database");
 
-			System.err.println(host + " " + port  + " " + user + " " + pass + " " + database);
-
 			return new Database(database, user, pass, host, port);
 		}
 		catch (NamingException ex) {
