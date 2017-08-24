@@ -17,7 +17,7 @@ public class ReminderController {
 	private ReminderModel[] reminders;
 	
 	public ReminderController() {
-		db = new Database();
+		db = Database.createDatabase();
 		userId = null;
 		reminders = new ReminderModel[0];
 	}

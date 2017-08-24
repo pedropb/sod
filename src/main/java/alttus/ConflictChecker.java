@@ -15,7 +15,7 @@ import java.util.TreeMap;
 
 public class ConflictChecker {
 	
-	private static Database db = new Database();
+	private static Database db = Database.createDatabase();
 
 
 	/*

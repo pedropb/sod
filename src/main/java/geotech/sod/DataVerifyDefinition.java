@@ -32,7 +32,7 @@ public class DataVerifyDefinition {
 	}
 	
 	public boolean verifyData(Sheet sheet) throws SQLException {
-		Database db = new Database();
+		Database db = Database.createDatabase();
 		ResultSet result;
 		String sql = "";
 		

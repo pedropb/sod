@@ -8,7 +8,7 @@
 	action = action == null ? "" : action;
 	
 	if(action.equals("login")){
-		Database db =  new Database();
+		Database db =  Database.createDatabase();
 		ResultSet result =  null;
 		String sql = "";
 		

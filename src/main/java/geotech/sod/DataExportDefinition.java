@@ -31,7 +31,7 @@ public class DataExportDefinition {
 	}
 	
 	public String[][] getContent() throws SQLException {
-		Database db = new Database();
+		Database db = Database.createDatabase();
 		
 		String countSql = "SELECT COUNT(*) FROM " + table;
 		ResultSet result = db.query(countSql);
@@ -56,7 +56,7 @@ public class DataExportDefinition {
 	}
 	
 	public String[][] getContentXlsx() throws SQLException {
-		Database db = new Database();
+		Database db = Database.createDatabase();
 		
 		String countSql = "SELECT COUNT(*) FROM " + table;
 		ResultSet result = db.query(countSql);

@@ -45,7 +45,7 @@ public class Permissions {
 		else
 			return false;
 		
-		Database db = new Database();
+		Database db = Database.createDatabase();
 		ResultSet result;
 		
 		if (userId.equals("0")){
@@ -208,7 +208,7 @@ public class Permissions {
 	}
 	
 	public static int getPermission(String userId, String reference) {
-		Database db = new Database();
+		Database db = Database.createDatabase();
 		ResultSet result;
 		
 		if (userId.equals("0")){
@@ -258,7 +258,7 @@ public class Permissions {
 	}
 	
 	public static void updateUserPermissions(HttpServletRequest request, String userId, String groupId) throws SQLException {
-		Database db = new Database();
+		Database db = Database.createDatabase();
 		ResultSet result;
 		
 		String sql = "DELETE FROM gt_users_groups WHERE user_id = " + userId;		
@@ -323,7 +323,7 @@ public class Permissions {
 	}
 	
 	public static void updateGroupPermissions(HttpServletRequest request, String groupId) throws SQLException {
-		Database db = new Database();
+		Database db = Database.createDatabase();
 		ResultSet result;
 		
 		String sql = "DELETE FROM gt_groups_permissions WHERE group_id = " + groupId;		

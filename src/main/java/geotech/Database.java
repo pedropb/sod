@@ -12,6 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import org.apache.commons.lang.StringEscapeUtils;
 
 /* 
@@ -22,20 +26,27 @@ public class Database
 	private Connection connection;
 	private String url;
 
-	public static final String DB = "sod";
-	public static final String USER = "sod";
-	public static final String PASS = "1234";
-	public static final String HOST = "db";
-	public static final String PORT = "5432";
-		
-	/*
-	 * Constructs the database object with the default connection parameters.
-	 */
-	public Database()
-	{
-		this(Database.DB, Database.USER, Database.PASS, Database.HOST, Database.PORT);
+	public static Database createDatabase() {
+		try {
+			Context ctx = new InitialContext();
+			Context env = (Context) ctx.lookup("java:comp/env");
+			final String host = (String) env.lookup("host");
+			final String port = (String) env.lookup("port");
+			final String user = (String) env.lookup("user");
+			final String pass = (String) env.lookup("pass");
+			final String database = (String) env.lookup("database");
+
+			System.err.println(host + " " + port  + " " + user + " " + pass + " " + database);
+
+			return new Database(database, user, pass, host, port);
+		}
+		catch (NamingException ex) {
+			System.err.println("Could not load environment properties from web.xml.");
+			ex.printStackTrace();
+			return null;
+		}
 	}
-	
+			
 	/*
 	 * Constructs the database object.
 	 * @param db The database name
@@ -145,7 +156,7 @@ public class Database
 		} catch(Exception ex)
 		{
 			System.err.println(ex.getMessage());
-//			ex.printStackTrace();
+			ex.printStackTrace();	
 			return 0;
 		}
 	}

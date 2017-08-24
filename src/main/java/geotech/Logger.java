@@ -19,7 +19,7 @@ public class Logger
 	
 	public Logger(HttpSession session)
 	{
-		db = new Database();
+		db = Database.createDatabase();
 		if (session.getAttribute("userId") instanceof Integer)
 			userId = (Integer) session.getAttribute("userId") + "";
 		else if (session.getAttribute("userId") instanceof String)

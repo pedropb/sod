@@ -24,7 +24,7 @@ if (action == null) {
 	return;
 }
 
-Database db = new Database();
+Database db = Database.createDatabase();
 
 String sql;
 

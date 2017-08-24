@@ -28,7 +28,7 @@ if (request.getParameter("newPassword") != null) {
 
 	if (newPassword.length() > 7 ) {
 		
-		Database db =  new Database();
+		Database db =  Database.createDatabase();
 		ResultSet result =  null;
 		
 		String sql = "UPDATE gt_users SET password = MD5('" + StringEscapeUtils.escapeSql(newPassword) + "') WHERE id = " + userId + filter;

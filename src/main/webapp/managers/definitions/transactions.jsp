@@ -21,7 +21,7 @@ if (action == null) {
 	return;
 }
 
-Database db = new Database();
+Database db = Database.createDatabase();
 Logger logger = new Logger(session);
 	
 String sql;

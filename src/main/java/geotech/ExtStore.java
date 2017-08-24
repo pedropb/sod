@@ -225,7 +225,7 @@ public class ExtStore {
 	public static boolean generateStore(String sql, HttpServletRequest request, JspWriter out) {
 
 		try {
-			Database db = new Database();
+			Database db = Database.createDatabase();
 			
 			String totalSql = prepareTotalSql(sql, request);
 			
@@ -282,7 +282,7 @@ public class ExtStore {
 	public static boolean generateChartStore(String sql, String otherSql, int limit, String othersName, HttpServletRequest request, JspWriter out) {
 
 		try {
-			Database db = new Database();
+			Database db = Database.createDatabase();
 			ResultSet result;
 			
 			JSONWriter output = new JSONWriter(out);

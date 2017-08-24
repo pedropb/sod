@@ -25,7 +25,7 @@ if (action == null) {
 
 String userId =  (String) session.getAttribute("userId");
 
-Database db = new Database();
+Database db = Database.createDatabase();
 Logger logger = new Logger(session);
 	
 String sql;

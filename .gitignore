@@ -6,7 +6,11 @@ target/
 .classpath
 .settings/
 
-
+# Mac
 .DS_Store
+
+# VSCode
 .vscode/
+
+# Project ignores
 *.war

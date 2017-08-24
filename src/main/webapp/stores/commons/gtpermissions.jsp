@@ -10,7 +10,7 @@
 	String userId = request.getParameter("userId");
 	String groupId = request.getParameter("groupId");
 	
-	Database db = new Database();
+	Database db = Database.createDatabase();
 	
 	if (userId != null && !userId.isEmpty()){
 		String sql;

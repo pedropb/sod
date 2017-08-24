@@ -11,7 +11,7 @@ if (!Permissions.canRead(session, "dashboard",  response, out))
 
 JSONWriter output = new JSONWriter(out);
 
-Database db = new Database();
+Database db = Database.createDatabase();
 
 String sql = 	"SELECT\n"+
 				"	snapshot_id AS id,\n" +

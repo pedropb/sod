@@ -1,6 +1,5 @@
 #!/bin/bash
 DB=sod
-SCHEMA=sod
 HOST=db:5432
 USER=sod
 PASSWORD=1234

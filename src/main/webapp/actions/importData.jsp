@@ -41,7 +41,7 @@ try {
 		output.endObject();
 	}
 	else {
-		Database db = new Database();
+		Database db = Database.createDatabase();
 		
 		String sFile = uploadData.get("import_file").getValue();
 
