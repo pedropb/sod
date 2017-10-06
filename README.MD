@@ -33,8 +33,7 @@ There is no ORM in place.
 ```bash
 $ git clone https://github.com/pedropb/sod.git
 $ cd sod
-$ mvn package
-$ cp target/sod.war docker/app/
+$ mvn install
 $ cd docker
 $ docker-compose up
 // to end the server press Ctrl-c.
@@ -43,6 +42,16 @@ $ docker-compose up
 Browse to http://localhost:8081/sod.
 
 Default user/password: `admin/sod_admin`.
+
+### After making changes to the source...
+
+```bash
+$ mvn install
+$ cd docker
+$ docker-compose build web
+$ docker-compose up
+// to end the server press Ctrl-c.
+```
 
 ## Future
 
