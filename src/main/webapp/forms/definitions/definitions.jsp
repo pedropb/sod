@@ -54,7 +54,11 @@ if (Permissions.canRead(session, "definitions_import_data")) {
 	output.key("text").value("Importar Dados");
 	output.key("formId").value("dataImport");
 	output.endObject();
-}
+	output.object();
+	output.key("text").value("Importar Dados FIDIS");
+	output.key("formId").value("dataImportFIDIS");
+	output.endObject();
+}	
 
 if (Permissions.canRead(session, "definitions_export_data")) {
 	output.object();

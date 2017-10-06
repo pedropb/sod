@@ -1,6 +1,6 @@
 GTPlanner.tabs.definitions = {
 	formsUrl: 'forms/definitions/definitions.jsp',
-	
+
 	constructor: function (params) {
 		return  Ext.create('Ext.ux.GTPanel', {
 			title: 'Definições',
@@ -11,7 +11,7 @@ GTPlanner.tabs.definitions = {
 
 GTPlanner.forms.listUsers = {
 	formsUrl: 'forms/definitions/listUsers.jsp',
-	
+
 	constructor: function (params) {
 		return Ext.create('GTPlanner.definitions.UsersGrid', {
 			permissions: params
@@ -21,7 +21,7 @@ GTPlanner.forms.listUsers = {
 
 GTPlanner.forms.listGroups = {
 	formsUrl: 'forms/definitions/listGroups.jsp',
-	
+
 	constructor: function (params) {
 		return Ext.create('GTPlanner.definitions.GroupsGrid', {
 			permissions: params
@@ -31,7 +31,7 @@ GTPlanner.forms.listGroups = {
 
 GTPlanner.forms.listTransactions = {
 	formsUrl: 'forms/definitions/listTransactions.jsp',
-	
+
 	constructor: function (params) {
 		return Ext.create('GTPlanner.definitions.TransactionsGrid', {
 			permissions: params
@@ -41,7 +41,7 @@ GTPlanner.forms.listTransactions = {
 
 GTPlanner.forms.listActivities = {
 	formsUrl: 'forms/definitions/listActivities.jsp',
-	
+
 	constructor: function (params) {
 		return Ext.create('GTPlanner.definitions.ActivitiesGrid', {
 			permissions: params
@@ -51,7 +51,7 @@ GTPlanner.forms.listActivities = {
 
 GTPlanner.forms.listConflicts = {
 	formsUrl: 'forms/definitions/listConflicts.jsp',
-	
+
 	constructor: function (params) {
 		return Ext.create('GTPlanner.definitions.ConflictsGrid', {
 			permissions: params
@@ -61,7 +61,7 @@ GTPlanner.forms.listConflicts = {
 
 GTPlanner.forms.listModules = {
 	formsUrl: 'forms/definitions/listModules.jsp',
-	
+
 	constructor: function (params) {
 		return Ext.create('GTPlanner.definitions.ModulesGrid', {
 			permissions: params
@@ -78,5 +78,11 @@ GTPlanner.forms.dataImport = {
 GTPlanner.forms.dataExport = {
 	constructor: function (params) {
 		return Ext.create('GTPlanner.definitions.ExportDataPanel');
+	}
+};
+
+GTPlanner.forms.dataImportFIDIS = {
+	constructor: function (params) {
+		return Ext.create('GTPlanner.definitions.ImportDataPanel');
 	}
 };
