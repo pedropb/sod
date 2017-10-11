@@ -83,6 +83,6 @@ GTPlanner.forms.dataExport = {
 
 GTPlanner.forms.dataImportFIDIS = {
 	constructor: function (params) {
-		return Ext.create('GTPlanner.definitions.ImportDataPanel');
+		return Ext.create('GTPlanner.definitions.ImportFIDISDataPanel');
 	}
 };

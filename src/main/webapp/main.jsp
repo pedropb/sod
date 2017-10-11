@@ -95,6 +95,7 @@ String userId = (String) session.getAttribute("userId");
 <script type="text/javascript" src="js/definitions/TransactionsGrid.js?_dc=<%=revision%>"></script>
 <script type="text/javascript" src="js/definitions/TransactionsWindow.js?_dc=<%=revision%>"></script>
 <script type="text/javascript" src="js/definitions/ImportDataPanel.js?_dc=<%=revision%>"></script>
+<script type="text/javascript" src="js/definitions/ImportFIDISDataPanel.js?_dc=<%=revision%>"></script>
 <script type="text/javascript" src="js/definitions/ExportDataPanel.js?_dc=<%=revision%>"></script>
 
 <script type="text/javascript" src="js/reports/models.js?_dc=<%=revision%>"></script>
