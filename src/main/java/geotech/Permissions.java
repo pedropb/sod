@@ -271,7 +271,8 @@ public class Permissions {
 
 		sql = "DELETE FROM gt_users_permissions WHERE user_id = " + userId;		
 		db.update(sql);
-	   	
+		   
+		@SuppressWarnings("unchecked")
 	   	Enumeration<String> en = (Enumeration<String>) request.getParameterNames();
 		while (en.hasMoreElements()) {
 			String paramName = (String) en.nextElement();
@@ -328,7 +329,8 @@ public class Permissions {
 		
 		String sql = "DELETE FROM gt_groups_permissions WHERE group_id = " + groupId;		
 	   	db.update(sql);
-	   	
+		   
+		@SuppressWarnings("unchecked")
 	   	Enumeration<String> en = (Enumeration<String>) request.getParameterNames();
 		while (en.hasMoreElements()) {
 			String paramName = (String) en.nextElement();
