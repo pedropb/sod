@@ -13,32 +13,32 @@
   <parameters>
     <parameter>
       <name>csv_file</name>
-      <default_value>sample.csv</default_value>
+      <default_value />
       <description>CSV file path</description>
     </parameter>
     <parameter>
       <name>db</name>
-      <default_value>sod</default_value>
+      <default_value />
       <description>Database name</description>
     </parameter>
     <parameter>
       <name>hostname</name>
-      <default_value>localhost</default_value>
+      <default_value />
       <description>Database hostname</description>
     </parameter>
     <parameter>
       <name>pass</name>
-      <default_value>1234</default_value>
+      <default_value />
       <description>Databasse password</description>
     </parameter>
     <parameter>
       <name>port</name>
-      <default_value>4642</default_value>
+      <default_value />
       <description>Database port</description>
     </parameter>
     <parameter>
       <name>user</name>
-      <default_value>sod</default_value>
+      <default_value />
       <description>Database username</description>
     </parameter>
   </parameters>
