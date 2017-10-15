@@ -48,9 +48,19 @@ Default user/password: `admin/sod_admin`.
 ```bash
 $ mvn install
 $ cd docker
-$ docker-compose build web
-$ docker-compose up
+$ docker-compose up --build web
 // to end the server press Ctrl-c.
+```
+
+### Connecting on docker containers to get debug info
+
+```bash
+$ docker exec -it <container_id> bash
+```
+
+To get the `container_id` use:
+```bash
+$ docker ps
 ```
 
 ## Future
