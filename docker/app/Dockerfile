@@ -1,4 +1,4 @@
-FROM tomcat:7-jre7
+FROM tomcat:7-jre8
 
 COPY ./sod.war /usr/local/tomcat/webapps/sod.war
 ENV JPDA_ADDRESS=8000

@@ -7,6 +7,28 @@
   <version>1.0-SNAPSHOT</version>
   <name>sod Maven Webapp</name>
   <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <pentaho.kettle.version>7.1.0.5-67</pentaho.kettle.version>
+  </properties>
+
+  <repositories>
+    <repository>
+        <id>pentaho.resolve.repo</id>
+        <name>Pentaho Omni</name>
+        <url>http://nexus.pentaho.org/content/groups/omni</url>
+        <releases>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+        </releases>
+        <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+        </snapshots>
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
         <groupId>commons-fileupload</groupId>
@@ -39,9 +61,9 @@
         <version>3.9</version>
     </dependency>
     <dependency>
-        <groupId>postgresql</groupId>
+        <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
-        <version>9.0-801.jdbc4</version>
+        <version>9.4-1200-jdbc41</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
@@ -71,6 +93,16 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>pentaho-kettle</groupId>
+        <artifactId>kettle-core</artifactId>
+        <version>${pentaho.kettle.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>pentaho-kettle</groupId>
+        <artifactId>kettle-engine</artifactId>
+        <version>${pentaho.kettle.version}</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>sod</finalName>
@@ -84,7 +116,7 @@
                     <phase>install</phase>
                     <configuration>
                         <target>
-                            <copy file="target/${artifactId}.war" tofile="docker/app/${artifactId}.war"/>
+                            <copy file="target/${project.artifactId}.war" tofile="docker/app/${project.artifactId}.war"/>
                         </target>
                     </configuration>
                     <goals>
