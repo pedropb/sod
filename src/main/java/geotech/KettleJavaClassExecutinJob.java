@@ -57,6 +57,8 @@ user		sod				Database username
 				System.out.println("Error Executing Job");
 			}
 			else {
+				// get job output!
+
 				System.out.println("Job executed successfully");
 			}
 			
