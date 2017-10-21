@@ -2,8 +2,6 @@ package geotech.sod;
 
 import geotech.Database;
 import geotech.Utils;
-import geotech.upload.ItemUpload;
-import geotech.upload.Receptor;
 import java.io.File;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -11,9 +9,6 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import java.sql.SQLException;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-
 
 /**
  * This class runs an import operation.
