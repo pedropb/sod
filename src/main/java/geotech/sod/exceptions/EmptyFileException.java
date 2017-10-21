@@ -4,7 +4,7 @@ public class EmptyFileException extends Exception {
     static final long serialVersionUID = 1L;
 
     public EmptyFileException() {
-        super("File is empty.");
+        super("Arquivo está vazio.");
     }
 
     public EmptyFileException(String message) {
