@@ -1,6 +1,9 @@
 <%@page pageEncoding="UTF-8" contentType="application/json; charset=UTF-8"%>
 <%@page import="geotech.sod.DataImporter"%>
 <%@page import="geotech.sod.DataImporterConfig"%>
+<%@page import="geotech.Permissions"%>
+<%@page import="geotech.Logger"%>
+<%@page import="org.json.JSONWriter"%>
 <%
 if (!Permissions.canWrite(session, "definitions_import_data", response, out))
 	return;
@@ -8,8 +11,8 @@ if (!Permissions.canWrite(session, "definitions_import_data", response, out))
 JSONWriter output = new JSONWriter(out);
 
 try {
-	DataImporterConfig config = DataImporterConfig.createFromRequest(request);
-	String o = DataImporter.run(config);
+	DataImporterConfig cfg = DataImporterConfig.createFromRequest(request);
+	String o = DataImporter.run(cfg);
 
 	output.object();
 	output.key("success").value(true);
