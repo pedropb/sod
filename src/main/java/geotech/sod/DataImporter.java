@@ -24,13 +24,6 @@ public class DataImporter {
         double initialTime = System.nanoTime();
         
         String sql = "";
-        
-        // load file
-        Map<String, ItemUpload> uploadData = Receptor.upload(request);
-        if (uploadData == null || uploadData.get("import_file") == null) {
-            return null;
-        }
-
         Database db = Database.createDatabase();
 
         // flags for handling deletion of solutions
