@@ -12,9 +12,34 @@
   <modified_date>2017/11/06 16:39:57.329</modified_date>
   <parameters>
     <parameter>
+      <name>db</name>
+      <default_value>sod</default_value>
+      <description>Postgres database name</description>
+    </parameter>
+    <parameter>
+      <name>host</name>
+      <default_value>localhost</default_value>
+      <description>Postgres host</description>
+    </parameter>
+    <parameter>
       <name>matera-file</name>
       <default_value>/Users/pedro/Developer/alttus/sod/src/main/resources/v1/sample.csv</default_value>
       <description>Path to Matera's data file</description>
+    </parameter>
+    <parameter>
+      <name>pass</name>
+      <default_value>1234</default_value>
+      <description>Postgres password</description>
+    </parameter>
+    <parameter>
+      <name>port</name>
+      <default_value>4642</default_value>
+      <description>Posgres port</description>
+    </parameter>
+    <parameter>
+      <name>user</name>
+      <default_value>sod</default_value>
+      <description>Postgres user</description>
     </parameter>
   </parameters>
   <slaveservers>
@@ -337,11 +362,6 @@
       <pass_export>N</pass_export>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
-        <parameter>
-          <name>matera-file</name>
-          <stream_name />
-          <value>${matera-file}</value>
-        </parameter>
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
