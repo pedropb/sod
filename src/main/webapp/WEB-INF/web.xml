@@ -26,6 +26,21 @@
     <env-entry-type>java.lang.String</env-entry-type>
     <env-entry-value>sod</env-entry-value>
   </env-entry>
+  <env-entry>
+    <env-entry-name>USER_DN</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>​CN=ad-admin,CN=Users,DC=fidis,DC=local</env-entry-value>
+  </env-entry>
+  <env-entry>
+    <env-entry-name>AD_PASSWORD</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>​SodAdAdmin201&amp;</env-entry-value>
+  </env-entry>
+  <env-entry>
+    <env-entry-name>LDAP_URL</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>​test-ad1717.cloudapp.net</env-entry-value>
+  </env-entry>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
     <welcome-file>main.jsp</welcome-file>
