@@ -23,10 +23,10 @@ public final class ADAuth {
         try {
 			Context ctx = new InitialContext();
 			Context env = (Context) ctx.lookup("java:comp/env");
-			final String USER_DN = (String) env.lookup("USER_DN");
-            final String AD_PASSWORD = (String) env.lookup("AD_PASSWORD");
-            final String LDAP_URL = (String) env.lookup("LDAP_URL");
-            final String SEARCH_BASE = (String) env.lookup("SEARCH_BASE");
+			String USER_DN = (String) env.lookup("USER_DN");
+            String AD_PASSWORD = (String) env.lookup("AD_PASSWORD");
+            String LDAP_URL = "ldap://" + (String) env.lookup("LDAP_URL");
+            String SEARCH_BASE = (String) env.lookup("SEARCH_BASE");
             
             return new ADAuth(LDAP_URL, SEARCH_BASE, USER_DN, AD_PASSWORD);
 		}
@@ -93,14 +93,14 @@ public final class ADAuth {
         String initialContextFactory = "com.sun.jndi.ldap.LdapCtxFactory";
         String securityAuthentication = "simple";
  
-        Hashtable<String, String> env = new Hashtable<>();
+        Hashtable<String, String> env = new Hashtable<String, String>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, initialContextFactory);
         env.put(Context.SECURITY_AUTHENTICATION, securityAuthentication);
-        env.put(Context.PROVIDER_URL, ldapUrl);
-        env.put(Context.SECURITY_PRINCIPAL,
-                username != null ? username : MASTER_USER_DN);
+        env.put(Context.PROVIDER_URL, this.ldapUrl);
+        env.put(Context.SECURITY_PRINCIPAL, 
+                username != null ? username : this.masterUserDN);
         env.put(Context.SECURITY_CREDENTIALS,
-                password != null ? password : MASTER_PASSWORD);
+                 password != null ? password : this.masterPassword);
  
         DirContext ctx = new InitialDirContext(env);
  
