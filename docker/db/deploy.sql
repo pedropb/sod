@@ -74,6 +74,7 @@ create table GT_USERS (
 );
 
 INSERT INTO GT_USERS(id, login, password, active, initialized) VALUES (1, 'admin', MD5('sod_admin'), TRUE, TRUE);
+ALTER SEQUENCE gt_users_id_seq RESTART WITH 2;
 
 /*==============================================================*/
 /* Table: GROUPS_SOLUTIONS                                      */
@@ -206,6 +207,8 @@ create table GT_USER_GROUPS (
    INITIALIZED          BOOL                 not null default FALSE,
    constraint PK_GT_USER_GROUPS primary key (ID)
 );
+INSERT INTO GT_USER_GROUPS(user_group, description, initialized) VALUES ('AD Users', 'Grupo padrão dos usuários autenticados pelo AD', TRUE);
+
 
 /*==============================================================*/
 /* Table: GT_GROUPS_PERMISSIONS                                 */

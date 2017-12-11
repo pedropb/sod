@@ -7,6 +7,21 @@
 <%@page import="org.apache.commons.lang.StringEscapeUtils" %>
 
 <%!
+public ResultSet authenticateUserAgainstDb(Database db, String username, String password) {
+	String sql = 	"SELECT\n" +
+					"	id,\n" +
+					"	active \n" +
+					"FROM\n" +
+					"	gt_users\n" +
+					"WHERE\n" +
+					"	LOWER(login) = LOWER('" + StringEscapeUtils.escapeSql(username) + "')\n" +
+					"	AND password = MD5('" + StringEscapeUtils.escapeSql(password) + "')\n" +
+					"	AND initialized = TRUE";
+
+	return db.query(sql);
+}
+
+
 public ResultSet fetchUser(Database db, String username) {
 	String sql = 	"SELECT\n" +
 					"	id,\n" +
@@ -35,6 +50,7 @@ public void startSession(JspWriter out, HttpSession session, ResultSet result) t
 }
 %>
 <%
+final String AD_GROUP_NAME = "AD Users";
 String action = request.getParameter("action");
 action = action == null ? "" : action;
 
@@ -43,6 +59,17 @@ if(action.equals("login")) {
 	
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
+
+	Database db =  Database.createDatabase();
+	ResultSet result;
+	
+	// check user credentials against Database
+	result = authenticateUserAgainstDb(db, username, password);
+	if (result.next()) {
+		startSession(out, session, result);
+		db.close();
+		return;
+	}
 
 	boolean validLogin = false;
 	try {
@@ -53,19 +80,19 @@ if(action.equals("login")) {
 		// This throws if Active Directory is not accessible or can't authenticate with master user.
 		// (i.e: configuration problems - see web.xml)
 		out.println("{success: false, msg: 'Não foi possível autenticar com o Active Directory.'}");
+		db.close();
 		return;
 	}
 
 	if (!validLogin) {
 		// Login is invalid if credentials cannot be found or do not match Active Directory.
 		out.println("{success: false, msg: 'Login / Senha incorretos(s). Verificar credenciais no LDAP.'}");
+		db.close();
 		return;
 	}
 
 	// with a valid login:
-	
-	Database db =  Database.createDatabase();
-	ResultSet result = fetchUser(db, username);
+	result = fetchUser(db, username);
 	
 	// check if user exists on Database and load its id on the session
 	if(result.next()){
@@ -77,9 +104,20 @@ if(action.equals("login")) {
 
 		String sql = 	"INSERT INTO gt_users(login, initialized)\n"+
 						" VALUES ('" + StringEscapeUtils.escapeSql(username) + "', true)";
-		
-		// TODO: insert user on default group
 
+		if (db.update(sql) != 1) {
+			// some problem occured
+			out.println("{success: false, msg: 'Erro ao criar usuário no Painel.'}");
+			db.close();
+			return;
+		}
+
+		// after inserting user insert user on default group
+		sql = 	"INSERT INTO gt_users_groups \n" +
+				"SELECT u.id, g.id \n" +
+				"FROM gt_users u, gt_user_groups g \n" +
+				"WHERE lower(u.login) = lower('" + StringEscapeUtils.escapeSql(username) + "') and g.user_group = '" + AD_GROUP_NAME + "';";
+		
 		if (db.update(sql) == 1) {
 			// after insert, fetch user to store user_id on session.
 			result = fetchUser(db, username);
@@ -88,7 +126,7 @@ if(action.equals("login")) {
 		}
 		else {
 			// some problem occured
-			out.println("{success: false, msg: 'Erro ao criar usuário no Painel.'}");
+			out.println("{success: false, msg: 'Erro ao associar usuário ao grupo do AD no Painel.'}");
 		}
 	}
 	
